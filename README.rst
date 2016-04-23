@@ -4,6 +4,10 @@ ipython-sql
 
 :Author: Catherine Devlin, http://catherinedevlin.blogspot.com
 
+Note: this is a fork with additional feature to support Apache impala on Jupyter/IPython notebooks
+in particular for interfacing with Cloudera Impyla https://github.com/cloudera/impyla
+- removed autocommit and added option for Kerberos authentication - Luca.Canali@cern.ch Apr 2016
+
 Introduces a %sql (or %%sql) magic.
 
 Connect to a database, using SQLAlchemy connect strings, then issue SQL
