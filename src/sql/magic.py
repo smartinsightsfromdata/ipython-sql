@@ -36,7 +36,7 @@ class SqlMagic(Magics, Configurable):
                            "When the first argument is of the form [section], "
                            "a sqlalchemy connection string is formed from the "
                            "matching section in the DSN file.")
-
+    connect_args = Unicode("", config=True, help="additional configuration options at connection time (optional)")
 
     def __init__(self, shell):
         Configurable.__init__(self, config=shell.config)
@@ -78,7 +78,7 @@ class SqlMagic(Magics, Configurable):
         user_ns.update(local_ns)
 
         parsed = sql.parse.parse('%s\n%s' % (line, cell), self)
-        conn = sql.connection.Connection.get(parsed['connection'])
+        conn = sql.connection.Connection.get(parsed['connection'], self)
         first_word = parsed['sql'].split(None, 1)[:1]
         if first_word and first_word[0].lower() == 'persist':
             return self._persist_dataframe(parsed['sql'], conn, user_ns)

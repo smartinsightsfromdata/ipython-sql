@@ -7,9 +7,12 @@ class Connection(object):
     def tell_format(cls):
         return "Format: (postgresql|mysql)://username:password@hostname/dbname, or one of %s" \
                % str(cls.connections.keys())
-    def __init__(self, connect_str=None):
+    def __init__(self, connect_str=None, config=None):
         try:
-            engine = sqlalchemy.create_engine(connect_str)
+            if config.connect_args:
+                engine = sqlalchemy.create_engine(connect_str,connect_args=eval(config.connect_args))
+            else:
+                engine = sqlalchemy.create_engine(connect_str)
         except: # TODO: bare except; but what's an ArgumentError?
             print(self.tell_format())
             raise 
@@ -21,7 +24,7 @@ class Connection(object):
         self.connections[str(self.metadata.bind.url)] = self
         Connection.current = self
     @classmethod
-    def get(cls, descriptor):
+    def get(cls, descriptor, config):
         if isinstance(descriptor, Connection):
             cls.current = descriptor
         elif descriptor:
@@ -30,7 +33,7 @@ class Connection(object):
             if conn:
                 cls.current = conn
             else:
-                cls.current = Connection(descriptor)
+                cls.current = Connection(descriptor, config)
         if cls.current:
             return cls.current
         else:
