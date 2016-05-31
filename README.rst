@@ -122,6 +122,7 @@ Some example connection strings::
 
     mysql+pymysql://scott:tiger@localhost/foo
     oracle://scott:tiger@127.0.0.1:1521/sidname
+    oracle+cx_oracle://scott:tiger@127.0.0.1:1521/?service_name=orcl.mydomain
     sqlite://
     sqlite:///foo.db
 
@@ -217,9 +218,7 @@ Installing
 
 Install the lastest release with::
 
-    pip install ipython-sql
-
-or download from https://github.com/catherinedevlin/ipython-sql and::
+download from https://github.com/lucacanali/ipython-sql and::
 
     cd ipython-sql
     sudo python setup.py install
@@ -234,7 +233,8 @@ specified) or in a file of the given name.
 Development
 -----------
 
-https://github.com/catherinedevlin/ipython-sql
+original repository: https://github.com/catherinedevlin/ipython-sql
+this fork: https://github.com/lucacanali/ipython-sql
 
 Credits
 -------
